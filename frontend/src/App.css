@@ -1,0 +1,44 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  padding:10px;
+  color:blue;
+  background-color: ghostwhite;
+}
+.menubtn{
+  color:blue;
+}
+.adduserbtn{
+  position: absolute;
+  right:5px;
+  padding:10px;
+}
+.table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top:50px;
+}
+table tr > td,th{
+  border:1px solid black;
+  margin:0;
+  text-align: center;
+  height:100%;
+}
+.btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:60px 0;
+}
+.btns Button{
+  margin:0 5px;
+}
+footer{
+  display: flex;
+  justify-content: space-between;
+  padding:10px;
+  background-color: ghostwhite;
+  color:blue;
+}
