@@ -8,6 +8,9 @@
 .menubtn{
   color:blue;
 }
+.adduser {
+  float: right;
+}
 .adduserbtn{
   position: absolute;
   right:5px;

@@ -23,7 +23,8 @@ export default function FormModal(props) {
     const {btnname,type,id}=props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-    const [user,setuser]=useState({firstname:"",lastname:"",email:"",avatar:""})
+    const [user,setuser]=useState({firstname:"",lastname:"",email:"",avatar:""});
+    const [error,seterror]=useState("");
   const handleOpen = () => {
     setOpen(true);
   };
@@ -39,17 +40,39 @@ export default function FormModal(props) {
       setOpen(false);
   }
   const handleupdate=()=>{
-      setOpen(false);
-      if(type==="post" || !user.firstname || !user.lastname || !user.email || !user.avatar){
-          const userdata={
-              first_name:user.firstname,
-              last_name:user.lastname,
-              email:user.email,
-              avatar:user.avatar
+     
+      const userdata={
+        first_name:user.firstname,
+        last_name:user.lastname,
+        email:user.email,
+        avatar:user.avatar
+       }
+    if(!user.firstname || !user.lastname || !user.email || !user.avatar){
+        seterror("please provide infromation correct");
+        
+    }
+    else{
+      if(type==="post" || user.firstname || user.lastname || user.email || user.avatar){
+        setOpen(false);
+        seterror("");
+          axios.post("https://reqres.in/api/users",userdata)
+          .then(response=>{
+              console.log(response.data);
+              setuser({firstname:"",lastname:"",email:"",avatar:""});
           }
-          axios.post(" https://reqres.in/api/users",userdata)
-          .then(response=>console.log(response.data))
+              )
           .catch(error=>console.log(error));
+      }
+      else if(type==="put" || user.firstname || user.lastname || user.email || user.avatar){
+          seterror("");
+            axios.put("https://reqres.in/api/users",userdata)
+            .then(response=>{
+                console.log(response.data);
+                setuser({firstname:"",lastname:"",email:"",avatar:""});
+            }
+                )
+            .catch(error=>console.log(error));
+      }
       }
   }
   return (
@@ -79,6 +102,7 @@ export default function FormModal(props) {
             <input type="email" value={user.email} onChange={(e)=>handlechange("email",e)}/>
             <p>Avatar</p>
             <input type="text" placeholder="Enter the url of profile image" value={user.avatar} onChange={(e)=>handlechange("avatar",e)} />
+            <p>{error}</p>
             <div className="btns">
                 <button onClick={handlecancle}>cancel</button>
             <button onClick={handleupdate}>update</button>
